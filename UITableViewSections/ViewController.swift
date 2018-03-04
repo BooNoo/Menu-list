@@ -17,11 +17,11 @@ class ViewController: UITableViewController {
     var product = Product(name: "Завертон", price: 100)
     
     var twoDementionsArray = [
-        ExpandableNames(isExpanded: false, name: "Завертон", products: [Product(name: "Завертон", price: 100), Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "1", products: [Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "2", products: [Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "3", products: [Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "4", products: [Product(name: "Завертон", price: 100)]),
+        ExpandableNames(isExpanded: false, name: "Завертон", products: [Product(name: "Завертон", price: 100), Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон с очень приочень большим названием, может даже больше чем надо", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
+        ExpandableNames(isExpanded: false, name: "1", products: [Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
+        ExpandableNames(isExpanded: false, name: "2", products: [Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
+        ExpandableNames(isExpanded: false, name: "3", products: [Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
+        ExpandableNames(isExpanded: false, name: "4", products: [Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
         ExpandableNames(isExpanded: false, name: "5",products: [Product(name: "Завертон", price: 100)]),
         ]
     
@@ -43,9 +43,11 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Меню"
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Show IndexPath", style: .plain, target: self, action: #selector(handleShowIndexPath))
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(ProductCell.self, forCellReuseIdentifier: cellId)
+        
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

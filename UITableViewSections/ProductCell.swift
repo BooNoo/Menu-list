@@ -14,7 +14,7 @@ class ProductCell: UITableViewCell {
         didSet {
             guard let unwrappedProduct = product else { return }
             name.text = unwrappedProduct.name
-            price.text = String(unwrappedProduct.price)
+            price.text = String(unwrappedProduct.price) + " ₽"
         }
     }
     
@@ -41,6 +41,20 @@ class ProductCell: UITableViewCell {
         return imageView
     }()
     
+    let buyButton: UIButton = {
+        var button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let buyButtonImageView: UIImageView = {
+        var imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "buy")
+        imageView.contentMode = .scaleToFill
+        return imageView
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
@@ -51,6 +65,7 @@ class ProductCell: UITableViewCell {
     }
     
     func setupLayout() {
+        buyButton.addTarget(self, action: #selector(buyProduct), for: .touchUpInside)
         
         let productInfo = UIStackView(arrangedSubviews: [name, price])
         productInfo.translatesAutoresizingMaskIntoConstraints = false
@@ -59,23 +74,34 @@ class ProductCell: UITableViewCell {
         
         addSubview(cellImageView)
         addSubview(productInfo)
+        addSubview(buyButton)
+        buyButton.addSubview(buyButtonImageView)
         
         NSLayoutConstraint.activate([
             
-            cellImageView.widthAnchor.constraint(equalToConstant: 100),
-            cellImageView.heightAnchor.constraint(equalToConstant: 100),
-            
+            cellImageView.widthAnchor.constraint(equalToConstant: 75),
+            cellImageView.heightAnchor.constraint(equalToConstant: 75),
             cellImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 8),
             cellImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
+            buyButton.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            buyButton.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            buyButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            buyButton.widthAnchor.constraint(equalToConstant: 100),
+            
+            buyButtonImageView.centerXAnchor.constraint(equalTo: buyButton.centerXAnchor),
+            buyButtonImageView.centerYAnchor.constraint(equalTo: buyButton.centerYAnchor),
+            
             productInfo.centerYAnchor.constraint(equalTo: centerYAnchor),
             productInfo.heightAnchor.constraint(greaterThanOrEqualTo: cellImageView.heightAnchor, multiplier: 0),
-            productInfo.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 16),
-            productInfo.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            
-//            price.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 16)
-            
+            productInfo.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            productInfo.leftAnchor.constraint(equalTo: cellImageView.rightAnchor, constant: 0),
+            productInfo.rightAnchor.constraint(equalTo: buyButton.leftAnchor, constant: 0),
+
             ])
-        
+    }
+    
+    @objc func buyProduct() {
+        print("add to cart")
     }
 }
