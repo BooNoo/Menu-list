@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D63ED31A1FC293A50042ACEB /* ExpandableNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63ED3191FC293A50042ACEB /* ExpandableNames.swift */; };
+		D63ED31A1FC293A50042ACEB /* MenuCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63ED3191FC293A50042ACEB /* MenuCategory.swift */; };
 		D68794881FC264E900334897 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68794871FC264E900334897 /* AppDelegate.swift */; };
 		D687948A1FC264E900334897 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68794891FC264E900334897 /* ViewController.swift */; };
 		D687948D1FC264E900334897 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D687948B1FC264E900334897 /* Main.storyboard */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D63ED3191FC293A50042ACEB /* ExpandableNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableNames.swift; sourceTree = "<group>"; };
+		D63ED3191FC293A50042ACEB /* MenuCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCategory.swift; sourceTree = "<group>"; };
 		D68794841FC264E900334897 /* UITableViewSections.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UITableViewSections.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D68794871FC264E900334897 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D68794891FC264E900334897 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 		D6EB7E4A204AEAB700D0338F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D63ED3191FC293A50042ACEB /* ExpandableNames.swift */,
+				D63ED3191FC293A50042ACEB /* MenuCategory.swift */,
 				D6EB7E4B204AEAE100D0338F /* Product.swift */,
 			);
 			path = Model;
@@ -153,7 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D63ED31A1FC293A50042ACEB /* ExpandableNames.swift in Sources */,
+				D63ED31A1FC293A50042ACEB /* MenuCategory.swift in Sources */,
 				D6EB7E4C204AEAE100D0338F /* Product.swift in Sources */,
 				D6EB7E4E204AEF2800D0338F /* ProductCell.swift in Sources */,
 				D687948A1FC264E900334897 /* ViewController.swift in Sources */,

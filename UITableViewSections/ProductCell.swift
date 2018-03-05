@@ -22,6 +22,7 @@ class ProductCell: UITableViewCell {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.black
+        label.font = UIFont.systemFont(ofSize: 20, weight: .light)
         label.numberOfLines = 0
         return label
     }()
@@ -29,7 +30,8 @@ class ProductCell: UITableViewCell {
     let price: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor.black
+        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        label.textColor = UIColor(red: 205/255, green: 38/255, blue: 38/255, alpha: 1)
         label.numberOfLines = 0
         return label
     }()

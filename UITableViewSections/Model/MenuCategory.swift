@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ExpandableNames {
+struct MenuCategory {
     
     var isExpanded: Bool
     var name: String

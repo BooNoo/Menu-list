@@ -14,15 +14,37 @@ class ViewController: UITableViewController {
     var isExpanded = false
     var showIndexPath = false
     
-    var product = Product(name: "Завертон", price: 100)
+    
+    let cartLabel: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        label.text = "5"
+        return label
+    }()
+    
+    let cartButton: UIButton = {
+        var button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let cartImage: UIImageView = {
+        var image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(named: "cart")
+        image.contentMode = .scaleAspectFit
+        return image
+    }()
     
     var twoDementionsArray = [
-        ExpandableNames(isExpanded: false, name: "Завертон", products: [Product(name: "Завертон", price: 100), Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон с очень приочень большим названием, может даже больше чем надо", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "1", products: [Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "2", products: [Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "3", products: [Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "4", products: [Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
-        ExpandableNames(isExpanded: false, name: "5",products: [Product(name: "Завертон", price: 100)]),
+        MenuCategory(isExpanded: false, name: "Бургеры&Панини", products: [Product(name: "Бургеры&Панини", price: 100), Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон с очень большим названием", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
+        MenuCategory(isExpanded: false, name: "Завертоны", products: [Product(name: "Завертоны", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
+        MenuCategory(isExpanded: false, name: "Салаты&Горячее", products: [Product(name: "Салаты&Горячее", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
+        MenuCategory(isExpanded: false, name: "Десерты", products: [Product(name: "Десерты", price: 100),Product(name: "Завертон", price: 100),Product(name: "Завертон", price: 100)]),
+        MenuCategory(isExpanded: false, name: "Кофе&Цай", products: [Product(name: "Кофе&Чай", price: 100),Product(name: "Завертон", price: 100)]),
+        MenuCategory(isExpanded: false, name: "Согревающие напитки",products: [Product(name: "Согревающие напитки", price: 100)]),
+        MenuCategory(isExpanded: false, name: "Фирменные коктейли",products: [Product(name: "Фирменные коктейли", price: 100)]),
         ]
     
     @objc func handleShowIndexPath() {
@@ -43,17 +65,17 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Меню"
+        setButtonView()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: cartButton)
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(ProductCell.self, forCellReuseIdentifier: cellId)
-        
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "food")
+        imageView.image = getCategoryImage(category: twoDementionsArray[section].name.uppercased())
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         
@@ -61,7 +83,7 @@ class ViewController: UITableViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.white
         label.font = UIFont.systemFont(ofSize: 26, weight: .light)
-        label.text = twoDementionsArray[section].name
+        label.text = twoDementionsArray[section].name.uppercased()
         label.textAlignment = .center
         
         let button = UIButton(type: .system)
@@ -109,7 +131,7 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 150
+        return 90
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -133,23 +155,66 @@ class ViewController: UITableViewController {
         return cell
     }
     
+    func setButtonView() {
+        
+        cartButton.addSubview(cartLabel)
+        cartButton.addSubview(cartImage)
+
+        NSLayoutConstraint.activate([
+            cartButton.heightAnchor.constraint(equalToConstant: 50),
+            cartButton.widthAnchor.constraint(equalToConstant: 30),
+            
+//            cartImage.heightAnchor.constraint(equalToConstant: 50),
+//            cartImage.widthAnchor.constraint(equalToConstant: 50),
+            
+            cartImage.leftAnchor.constraint(equalTo: cartButton.leftAnchor),
+//            cartImage.rightAnchor.constraint(equalTo: cartButton.rightAnchor),
+            cartImage.centerYAnchor.constraint(equalTo: cartButton.centerYAnchor),
+//            cartImage.bottomAnchor.constraint(equalTo: cartButton.bottomAnchor),
+            
+//            cartLabel.heightAnchor.constraint(equalToConstant: 50),
+            cartLabel.widthAnchor.constraint(equalToConstant: 25),
+            
+//            cartLabel.rightAnchor.constraint(equalTo: cartButton.rightAnchor),
+            cartLabel.leftAnchor.constraint(equalTo: cartImage.rightAnchor, constant: 8),
+//            cartLabel.topAnchor.constraint(equalTo: cartButton.topAnchor),
+            cartLabel.bottomAnchor.constraint(equalTo: cartImage.bottomAnchor),
+            
+            
+            ])
+    }
+    
+    func getCategoryImage(category:String) -> UIImage? {
+        switch category {
+        case "БУРГЕРЫ&ПАНИНИ":
+            return UIImage(named: "burgers")
+        case "ЗАВЕРТОНЫ":
+            return UIImage(named: "rolls")
+        case "САЛАТЫ&ГОРЯЧЕЕ":
+            return UIImage(named: "salat")
+        case "ДЕСЕРТЫ":
+            return UIImage(named: "desert")!
+        case "КОФЕ&ЦАЙ":
+            return UIImage(named: "coffee")!
+        case "ICE-MENU":
+            return UIImage(named: "ice-menu")!
+        case "ФРУКТОВЫЕ ШЕЙКИ":
+            return UIImage(named: "fructshake")!
+        case "ФИРМЕННЫЕ КОКТЕЙЛИ":
+            return UIImage(named: "cocktails")!
+        case "ПИЦЦА":
+            return UIImage(named: "pizza")!
+        case "СОГРЕВАЮЩИЕ НАПИТКИ":
+            return UIImage(named: "hotdrinks")!
+        case "СПЕЦПРЕДЛОЖЕНИЯ":
+            return UIImage(named: "special")!
+        default:
+            return UIImage(named: "special")!
+        }
+    }
+    
 }
 
 fileprivate extension Selector {
     static let expandClose = #selector(ViewController.handleExpandClose)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
